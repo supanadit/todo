@@ -10,4 +10,9 @@ class TodoController extends Controller
     {
         return view('home');
     }
+
+    public function createTodo()
+    {
+
+    }
 }

@@ -10,7 +10,7 @@
 
 @section('top-button')
     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-default">
-        Create Todo
+        Create Directory
     </button>
 @endsection
 
@@ -76,8 +76,8 @@
                 return false;
             }
 
-            // CTRL + N
-            if (e.shiftKey && e.which === 78) {
+            // ALT + N
+            if (e.altKey && e.which === 78) {
                 $("#modal-default").modal('show');
                 return false;
             }
