@@ -52,9 +52,27 @@
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/home"><i class="fa fa-home"></i>&nbsp;Home</a></li>
-                        <li><a href="#" id="logout-button"><i class="fa fa-sign-out"></i>&nbsp;Sign Out</a></li>
+                        <li><a href="#" class="logout-button visible-xs"><i class="fa fa-sign-out"></i>&nbsp;Sign
+                                Out</a>
+                        </li>
                     </ul>
                 </div>
+
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- User Account Menu -->
+                        <li class="dropdown user user-menu hidden-xs">
+                            <!-- Menu Toggle Button -->
+                            <a href="#" class="dropdown-toggle logout-button">
+                                <!-- The user image in the navbar-->
+                                <img src="{{asset('vector/avatar.svg')}}" class="user-image" alt="User Image">
+                                <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                <span>{{ Session::get('name') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-custom-menu -->
             </div>
             <!-- /.container-fluid -->
         </nav>
@@ -115,7 +133,7 @@
 
 <script type="application/javascript">
     $(document).ready(function () {
-        $("#logout-button").on('click', function () {
+        $(".logout-button").on('click', function () {
             swal({
                 title: "Do you want to sign out ?",
                 buttons: ["No", "Yes"],
