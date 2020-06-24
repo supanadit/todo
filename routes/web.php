@@ -21,11 +21,22 @@ Route::middleware('auth.web')->group(function () {
 
     // This group is used for internal API provided by session
     Route::prefix('/web')->group(function () {
+        // Todo
         Route::get('/todo', "TodoController@todoList");
         Route::post('/todo', "TodoController@todoCreate");
         Route::put('/todo', "TodoController@todoEdit");
         Route::get('/todo/{id}', "TodoController@todoView");
         Route::delete('/todo/{id}', "TodoController@todoDelete");
+
+        // Todo Item
+        Route::get('/todo/item/mark/{id}', "TodoController@todoItemMarkComplete");
+        Route::get('/todo/item/unmark/{id}', "TodoController@todoItemMarkNotComplete");
+
+        Route::get('/todo/item/{todo_id}', "TodoController@todoItemList");
+        Route::post('/todo/item', "TodoController@todoItemCreate");
+        Route::put('/todo/item', "TodoController@todoItemEdit");
+        Route::get('/todo/item/{id}', "TodoController@todoItemView");
+        Route::delete('/todo/item/{id}', "TodoController@todoItemDelete");
     });
 });
 
