@@ -18,9 +18,9 @@ class CreateTodosTable extends Migration
             $table->timestamps();
 
             $table->string("name");
-            $table->text("Description");
+            $table->text("description")->nullable(true);
 
-            $table->unsignedBigInteger('user_id')->default(false);
+            $table->unsignedBigInteger('user_id');
         });
         Schema::table('todos', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');

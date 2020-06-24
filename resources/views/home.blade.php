@@ -10,7 +10,7 @@
 
 @section('top-button')
     <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-default">
-        Create Directory
+        Create Todo
     </button>
 @endsection
 

@@ -51,9 +51,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/home"><i class="fa fa-home"></i>&nbsp;Home</a></li>
-                        <li><a href="#" class="logout-button visible-xs"><i class="fa fa-sign-out"></i>&nbsp;Sign
-                                Out</a>
+                        <li><a href="/home">Home</a></li>
+                        <li>
+                            <a href="#" class="logout-button visible-xs">
+                                Sign Out
+                            </a>
                         </li>
                     </ul>
                 </div>
