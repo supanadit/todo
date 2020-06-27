@@ -144,11 +144,46 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <div class="modal fade" id="todo-item-edit-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/" method="post" id="todo-item-edit-modal-form">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Todo Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control"
+                                   placeholder="Edit todo item name here"
+                                   id="todo-item-edit-modal-field-name">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left"
+                                id="todo-item-edit-modal-cancel-button">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" id="todo-item-edit-modal-save-loading-indicator"></i>
+                            <span id="todo-item-edit-modal-save-button">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('js')
     <script type="application/javascript">
-        let todoId = null;
+        let todo = null;
+        let todoItem = null;
 
         $(document).bind('keydown', function (e) {
             // CTRL + S
@@ -197,41 +232,93 @@
             });
         }
 
-        const todoComponent = function (todo) {
-            const description = (todo.description != null ? (todo.description.length > 20) ? todo.description.substring(0, 20).concat("...") : todo.description : "");
+        const todoComponent = function (t) {
+            const description = (t.description != null ? (t.description.length > 20) ? t.description.substring(0, 20).concat("...") : t.description : "");
             const todoData = "<div class=\"col-md-4 col-sm-6 col-xs-12\">\n" +
                 "            <div class=\"box box-widget widget-user\">\n" +
                 "                <!-- Add the bg color to the header using any of the bg-* classes -->\n" +
                 "                <div class=\"widget-user-header bg-aqua-active\">\n" +
-                "                    <h3 class=\"widget-user-username\">" + todo.name + "</h3>\n" +
+                "                    <h3 class=\"widget-user-username\">" + t.name + "</h3>\n" +
                 "                    <h5 class=\"widget-user-desc\">" + description + "</h5>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>";
             return $(todoData).click(function () {
-                todoId = todo.id;
+                todo = t;
 
                 loadTodoItemList();
 
-                $("#todo-view-modal-title").html(todo.name);
-                $("#todo-view-modal-description").html(todo.description);
+                $("#todo-view-modal-title").html(t.name);
+                $("#todo-view-modal-description").html(t.description);
 
                 $("#todo-view-modal").modal('show');
             });
         }
 
         const todoItemTableRowComponent = function (todoItem) {
-            const buttonToggleMark = "<button type=\"button\" class=\"btn btn-xs " + (!todoItem.complete ? "btn-danger" : "btn-success") + "\"><i class=\"fa " + (!todoItem.complete ? "fa-toggle-off" : "fa-toggle-on") + "\"></i></button>";
-            const buttonEdit = "<button class=\"btn btn-xs btn-info\"><i class=\"fa fa-edit\"></i></button>";
-            return "<tr>\n" +
+            const buttonToggleMark = "<button type=\"button\" class=\"btn btn-xs " + (!todoItem.complete ? "btn-danger" : "btn-success") + " btn-todo-toggle-mark\"><i class=\"fa " + (!todoItem.complete ? "fa-toggle-off" : "fa-toggle-on") + "\"></i></button>";
+            const buttonEdit = "<button class=\"btn btn-xs btn-info btn-todo-edit\"><i class=\"fa fa-edit\"></i></button>";
+            const buttonDelete = "<button class=\"btn btn-xs btn-danger btn-todo-delete\"><i class=\"fa fa-trash\"></i></button>";
+            const row = "<tr>\n" +
                 "                            <td>" + todoItem.name + "</td>\n" +
                 "                            <td><label class=\"label " + (!todoItem.complete ? "label-danger" : "label-success") + "\">" + (!todoItem.complete ? "Not complete" : "Complete") + "</label></td>\n" +
                 "                            <td>\n" +
                 "                                " + buttonToggleMark + "\n" +
                 "                                " + buttonEdit + "\n" +
-                "                                <button class=\"btn btn-xs btn-danger\"><i class=\"fa fa-trash\"></i></button>\n" +
+                "                                " + buttonDelete + "\n" +
                 "                            </td>\n" +
                 "                        </tr>";
+            return $(row).on('click', 'button.btn-todo-toggle-mark', function () {
+                toggleTodoItem(todoItem);
+            }).on('click', 'button.btn-todo-edit', function () {
+                editTodoItem(todoItem);
+            }).on('click', 'button.btn-todo-delete', function () {
+                deleteTodoItem(todoItem);
+            });
+        }
+
+        const toggleTodoItem = function (todoItem) {
+            $.ajax({
+                type: "GET",
+                url: "/web/todo/item/" + (todoItem.complete ? "unmark" : "mark") + "/" + todoItem.id,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                contentType: "application/json",
+                async: true,
+                success: function (result) {
+                    loadTodoItemList();
+                },
+                error: function (result) {
+                    toastr.error(result.responseJSON.message);
+                }
+            });
+        }
+
+        const editTodoItem = function (t) {
+            todoItem = t;
+            $("#todo-item-edit-modal-field-name").val(todoItem.name);
+
+            $("#todo-view-modal").modal('hide');
+            $("#todo-item-edit-modal").modal('show');
+        }
+
+        const deleteTodoItem = function (todoItem) {
+            $.ajax({
+                type: "DELETE",
+                url: "/web/todo/item/" + todoItem.id,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                contentType: "application/json",
+                async: true,
+                success: function (result) {
+                    loadTodoItemList();
+                },
+                error: function (result) {
+                    toastr.error(result.responseJSON.message);
+                }
+            });
         }
 
         const loadTodoItemList = function () {
@@ -242,7 +329,7 @@
                 "                        </tr>");
             $.ajax({
                 type: "GET",
-                url: "/web/todo/item/" + todoId,
+                url: "/web/todo/item/" + todo.id,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
@@ -272,6 +359,7 @@
             // Component Initialization
             $("#todo-create-modal-save-loading-indicator").hide();
             $("#todo-item-create-modal-save-loading-indicator").hide();
+            $("#todo-item-edit-modal-save-loading-indicator").hide();
 
             // Create Todo Submit Action
             $("#todo-create-modal-form").on("submit", function (e) {
@@ -333,7 +421,7 @@
                     },
                     data: JSON.stringify({
                         "name": name.val(),
-                        "todo_id": todoId,
+                        "todo_id": todo.id,
                     }),
                     contentType: "application/json",
                     dataType: "json",
@@ -364,6 +452,53 @@
                 });
             });
 
+            // Edit Todo Item Submit Action
+            $("#todo-item-edit-modal-form").on("submit", function (e) {
+                e.preventDefault();
+
+                const name = $("#todo-item-edit-modal-field-name");
+
+                $.ajax({
+                    type: "PUT",
+                    url: "/web/todo/item",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    },
+                    data: JSON.stringify({
+                        "name": name.val(),
+                        "id": todoItem.id,
+                        "todo_id": todoItem.todo_id,
+                        "complete": todoItem.complete,
+                    }),
+                    contentType: "application/json",
+                    dataType: "json",
+                    async: true,
+                    beforeSend: function () {
+                        $("#todo-item-edit-modal-save-loading-indicator").show();
+                        $("#todo-item-edit-modal-save-button-label").hide();
+                    },
+                    success: function (result) {
+                        $("#todo-item-edit-modal-save-loading-indicator").hide();
+                        $("#todo-item-edit-modal-save-button-label").show();
+
+                        name.val(null);
+
+                        toastr.success(result.message);
+
+                        $("#todo-view-modal").modal('show');
+                        $("#todo-item-edit-modal").modal('hide');
+
+                        loadTodoItemList();
+                    },
+                    error: function (result) {
+                        $("#todo-item-edit-modal-save-loading-indicator").hide();
+                        $("#todo-item-edit-modal-save-button-label").show();
+
+                        toastr.error(result.responseJSON.message);
+                    }
+                });
+            });
+
             // Search
             $("input#search-todo").on('keyup', function () {
                 loadTodoList();
@@ -379,6 +514,12 @@
             $("#todo-item-create-modal-cancel-button").click(function () {
                 $("#todo-view-modal").modal('show');
                 $("#todo-item-create-modal").modal('hide');
+            });
+
+            // Button Cancel On Edit Todo Item Modal
+            $("#todo-item-edit-modal-cancel-button").click(function () {
+                $("#todo-view-modal").modal('show');
+                $("#todo-item-edit-modal").modal('hide');
             });
         });
     </script>
