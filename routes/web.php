@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', "SecurityController@initSystem");
 Route::get('/login', "SecurityController@viewLogin")->name('login');
-//Route::get('/forgot/password', "SecurityController@viewForgotPassword");
+Route::get('/forgot/password', "SecurityController@viewForgotPassword");
 Route::get('/register', "SecurityController@viewRegister");
 
 Route::middleware('auth.web')->group(function () {
@@ -43,5 +43,6 @@ Route::middleware('auth.web')->group(function () {
 });
 
 Route::post('/web/login', "SecurityController@formLogin");
+Route::post('/web/forgot', "SecurityController@formForgotPassword");
 Route::post('/web/register', "SecurityController@formRegister");
 Route::get('/web/logout', "SecurityController@formLogout");

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgotPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class SecurityController extends Controller
 {
@@ -105,6 +108,28 @@ class SecurityController extends Controller
                     ], 400);
                 }
             }
+        }
+    }
+
+    public function formForgotPassword(Request $request)
+    {
+        $request->validate([
+            "email" => "required",
+        ]);
+        $user = \App\User::where("email", $request->input("email"))->first();
+        if ($user != null) {
+            $name = $user->name;
+            $newPassword = Str::random(4);
+            $user->password = Hash::make($newPassword);
+            Mail::to($user->email)->send(new ForgotPassword($name, $newPassword));
+            $user->save();
+            return response()->json([
+                "message" => "Please check your email",
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "Email " . $request->input('email') . " is not exist",
+            ], 400);
         }
     }
 

@@ -41,7 +41,7 @@
     <div class="login-box-body">
         <p class="login-box-msg">Forgot Password</p>
 
-        <form action="/" method="post" id="login-form">
+        <form action="/" method="post" id="forgot-password-form">
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" placeholder="Email" id="email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -72,17 +72,16 @@
 <script src="{{asset('plugin/iCheck/icheck.min.js')}}"></script>
 <script>
     $(document).ready(function () {
-        $("#login-form").on("submit", function (e) {
+        $("#forgot-password-form").on("submit", function (e) {
             e.preventDefault();
             $.ajax({
                 type: "POST",
-                url: "/web/login",
+                url: "/web/forgot",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 },
                 data: JSON.stringify({
                     "email": $("#email").val(),
-                    "password": $("#password").val()
                 }),
                 contentType: "application/json",
                 dataType: "json",
@@ -90,7 +89,7 @@
                 success: function (result) {
                     toastr.success(result.message);
                     window.setTimeout(function () {
-                        location.reload();
+                        location.href = "/";
                     }, 500);
                 },
                 error: function (result) {

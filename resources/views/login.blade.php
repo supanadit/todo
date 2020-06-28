@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-xs-8">
                     <a href="/register" class="text-center">Register new account</a><br/>
-                    Version 1.0.2
+                    <a href="/forgot/password" class="text-center">Forgot Password</a><br/>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -62,7 +62,8 @@
                 <!-- /.col -->
             </div>
         </form>
-        {{--        <a href="/forgot/password">Forgot Password</a><br>--}}
+        <br/>
+        Version 1.0.2
     </div>
     <!-- /.login-box-body -->
 </div>
