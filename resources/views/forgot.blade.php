@@ -38,36 +38,24 @@
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Forgot Password</p>
 
         <form action="/" method="post" id="login-form">
             <div class="form-group has-feedback">
                 <input type="email" class="form-control" placeholder="Email" id="email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control" placeholder="Password" id="password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
             <div class="row">
                 <div class="col-xs-8">
-                    Version 1.0.0
+                    <a href="/" class="btn btn-default btn-block btn-flat">Back</a>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Send</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-        </div>
-        <!-- /.social-auth-links -->
-
-        <a href="/forgot/password">Forgot Password</a><br>
-        <a href="/register" class="text-center">Register</a>
     </div>
     <!-- /.login-box-body -->
 </div>

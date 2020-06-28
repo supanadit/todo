@@ -25,6 +25,24 @@ class SecurityController extends Controller
         }
     }
 
+    public function viewForgotPassword(Request $request)
+    {
+        if (!$request->session()->has('user')) {
+            return view('forgot');
+        } else {
+            return redirect('home');
+        }
+    }
+
+    public function viewRegister(Request $request)
+    {
+        if (!$request->session()->has('user')) {
+            return view('register');
+        } else {
+            return redirect('home');
+        }
+    }
+
     public function formLogin(Request $request)
     {
         $request->validate([
@@ -51,6 +69,42 @@ class SecurityController extends Controller
             return response()->json([
                 "message" => "Username or password is wrong",
             ], 401);
+        }
+    }
+
+    public function formRegister(Request $request)
+    {
+        $request->validate([
+            "name" => "required",
+            "email" => "required",
+            "password" => "required",
+            "password_confirm" => "required",
+        ]);
+        $user = \App\User::where("email", $request->input("email"))->first();
+        if ($user != null) {
+            return response()->json([
+                "message" => "User with email " . $user->email . " is exist",
+            ], 400);
+        } else {
+            if ($request->input('password') != $request->input('password_confirm')) {
+                return response()->json([
+                    "message" => "Confirm password is different with provided password",
+                ], 400);
+            } else {
+                $user = new \App\User();
+                $user->name = $request->input("name");
+                $user->email = $request->input("email");
+                $user->password = Hash::make($request->input("password"));
+                if ($user->save()) {
+                    return response()->json([
+                        "message" => "Register success, now you can login...",
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "message" => "Failed to register new user",
+                    ], 400);
+                }
+            }
         }
     }
 
