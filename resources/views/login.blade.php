@@ -51,8 +51,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    Version 1.0.0<br/>
-                    <a href="/register" class="text-center">Create account</a>
+                    <a href="/register" class="text-center">Register new account</a><br/>
+                    Version 1.0.0
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
