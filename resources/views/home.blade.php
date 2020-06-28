@@ -113,10 +113,8 @@
                     <h4 class="modal-title" id="todo-view-modal-title"></h4>
                 </div>
                 <div class="modal-body">
-                    <dl>
-                        <dt>Description</dt>
-                        <dd id="todo-view-modal-description"></dd>
-                    </dl>
+                    <b>Description</b>
+                    <p id="todo-view-modal-description" style="width:100%;word-wrap: break-word;"></p>
                     <div>
                         <b>Todo Item List</b>
                         <div class="pull-right">
@@ -128,9 +126,9 @@
                     <table class="table table-condensed table-hover">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th style="width: 65%;">Name</th>
                             <th>Status</th>
-                            <th style="width: 90px;">Action</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody id="todo-view-modal-table-body"></tbody>
@@ -282,13 +280,11 @@
         }
 
         const todoComponent = function (t) {
-            const description = (t.description != null ? (t.description.length > 20) ? t.description.substring(0, 20).concat("...") : t.description : "");
             const todoData = "<div class=\"col-md-4 col-sm-6 col-xs-12\">\n" +
                 "            <div class=\"box box-widget widget-user\">\n" +
                 "                <!-- Add the bg color to the header using any of the bg-* classes -->\n" +
                 "                <div class=\"widget-user-header bg-aqua-active\">\n" +
                 "                    <h3 class=\"widget-user-username\">" + t.name + "</h3>\n" +
-                "                    <h5 class=\"widget-user-desc\">" + description + "</h5>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>";
