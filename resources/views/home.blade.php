@@ -263,13 +263,24 @@
                 },
                 contentType: "application/json",
                 async: true,
+                beforeSend: function () {
+                    $("#todo-list").html("<div style=\"text-align: center;height: 200px;position: relative;\">\n" +
+                        "            <i class=\"fa fa-spinner fa-spin\" style=\"position: absolute;top:50%;left:50%;\"></i>\n" +
+                        "        </div>");
+                },
                 success: function (result) {
                     if (result.length !== 0) {
                         $("#todo-list").html(result.map(m => todoComponent(m)));
                     } else {
-                        $("#todo-list").html("<div style=\"text-align: center;height: 200px;position: relative;\">\n" +
-                            "            <p style=\"position: absolute;top:50%;left:50%;color:#777;\"><i class='fa fa-calendar-times-o'></i>&nbsp;Not found or empty</p>\n" +
-                            "        </div>");
+                        if ($("#search-todo").val() != null && $("#search-todo").val() != "") {
+                            $("#todo-list").html("<div style=\"text-align: center;height: 200px;position: relative;\">\n" +
+                                "            <p style=\"position: absolute;top:50%;left:50%;color:#777;\"><i class='fa fa-calendar-times-o'></i>&nbsp;Not found</p>\n" +
+                                "        </div>");
+                        } else {
+                            $("#todo-list").html("<div style=\"text-align: center;height: 200px;position: relative;\">\n" +
+                                "            <p style=\"position: absolute;top:50%;left:50%;color:#777;\"><i class='fa fa-calendar-times-o'></i>&nbsp;Empty</p>\n" +
+                                "        </div>");
+                        }
                     }
                 },
                 error: function (result) {
