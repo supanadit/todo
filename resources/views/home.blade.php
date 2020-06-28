@@ -37,8 +37,6 @@
             <div class="modal-content">
                 <form action="/" method="post" id="todo-create-modal-form">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Create Todo</h4>
                     </div>
                     <div class="modal-body">
@@ -75,8 +73,6 @@
             <div class="modal-content">
                 <form action="/" method="post" id="todo-edit-modal-form">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Edit Todo</h4>
                     </div>
                     <div class="modal-body">
@@ -156,8 +152,6 @@
             <div class="modal-content">
                 <form action="/" method="post" id="todo-item-create-modal-form">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Create Todo Item</h4>
                     </div>
                     <div class="modal-body">
@@ -190,8 +184,6 @@
             <div class="modal-content">
                 <form action="/" method="post" id="todo-item-edit-modal-form">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">Edit Todo Item</h4>
                     </div>
                     <div class="modal-body">
@@ -278,7 +270,7 @@
                                 "        </div>");
                         } else {
                             $("#todo-list").html("<div style=\"text-align: center;height: 200px;position: relative;\">\n" +
-                                "            <p style=\"position: absolute;top:50%;left:50%;color:#777;\"><i class='fa fa-calendar-times-o'></i>&nbsp;Empty</p>\n" +
+                                "            <p style=\"position: absolute;top:50%;left:45%;color:#777;\"><i class='fa fa-calendar-times-o'></i>&nbsp;Create new one&nbsp;<span class=\"label label-default\">ALT + N</span></p>\n" +
                                 "        </div>");
                         }
                     }
