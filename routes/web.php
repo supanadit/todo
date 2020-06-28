@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', "SecurityController@initSystem");
 Route::get('/login', "SecurityController@viewLogin")->name('login');
-Route::get('/forgot/password', "SecurityController@viewForgotPassword");
+//Route::get('/forgot/password', "SecurityController@viewForgotPassword");
 Route::get('/register', "SecurityController@viewRegister");
 
 Route::middleware('auth.web')->group(function () {

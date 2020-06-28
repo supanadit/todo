@@ -51,7 +51,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-8">
-                    Version 1.0.0
+                    Version 1.0.0<br/>
+                    <a href="/register" class="text-center">Create account</a>
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">
@@ -60,14 +61,7 @@
                 <!-- /.col -->
             </div>
         </form>
-
-        <div class="social-auth-links text-center">
-            <p>- OR -</p>
-        </div>
-        <!-- /.social-auth-links -->
-
-        <a href="/forgot/password">Forgot Password</a><br>
-        <a href="/register" class="text-center">Register</a>
+        {{--        <a href="/forgot/password">Forgot Password</a><br>--}}
     </div>
     <!-- /.login-box-body -->
 </div>
