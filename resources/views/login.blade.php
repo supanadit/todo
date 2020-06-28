@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-xs-8">
                     <a href="/register" class="text-center">Register new account</a><br/>
-                    Version 1.0.1
+                    Version 1.0.2
                 </div>
                 <!-- /.col -->
                 <div class="col-xs-4">

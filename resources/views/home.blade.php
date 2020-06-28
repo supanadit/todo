@@ -123,12 +123,13 @@
                             </button>
                         </div>
                     </div>
-                    <table class="table table-condensed table-hover">
+                    <br/>
+                    <table class="table table-bordered">
                         <thead>
                         <tr>
                             <th style="width: 65%;">Name</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th style="text-align:center;">Status</th>
+                            <th style="text-align:center;">Action</th>
                         </tr>
                         </thead>
                         <tbody id="todo-view-modal-table-body"></tbody>
@@ -306,8 +307,8 @@
             const buttonDelete = "<button class=\"btn btn-xs btn-danger btn-todo-delete\"><i class=\"fa fa-trash\"></i></button>";
             const row = "<tr>\n" +
                 "                            <td>" + todoItem.name + "</td>\n" +
-                "                            <td><label class=\"label " + (!todoItem.complete ? "label-danger" : "label-success") + "\">" + (!todoItem.complete ? "Not complete" : "Complete") + "</label></td>\n" +
-                "                            <td>\n" +
+                "                            <td align=\"center\"><label class=\"label " + (!todoItem.complete ? "label-danger" : "label-success") + "\">" + (!todoItem.complete ? "Not complete" : "Complete") + "</label></td>\n" +
+                "                            <td align=\"center\">\n" +
                 "                                " + buttonToggleMark + "\n" +
                 "                                " + buttonEdit + "\n" +
                 "                                " + buttonDelete + "\n" +
