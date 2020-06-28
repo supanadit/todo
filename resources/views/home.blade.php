@@ -70,6 +70,46 @@
         <!-- /.modal-dialog -->
     </div>
 
+    <div class="modal fade" id="todo-edit-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/" method="post" id="todo-edit-modal-form">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Edit Todo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Insert todo name or title"
+                                   id="todo-edit-modal-field-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control"
+                                      id="todo-edit-modal-field-description"
+                                      rows="3"
+                                      style="resize:vertical;max-height: 200px;min-height:100px;"
+                                      placeholder="Describe what this todo really is"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" id="todo-edit-modal-cancel-button">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" id="todo-edit-modal-save-loading-indicator"></i>
+                            <span id="todo-edit-modal-save-button-label">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <div class="modal fade" id="todo-view-modal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -102,8 +142,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-info">Edit Todo</button>
-                    <button type="button" class="btn btn-danger">Delete Todo</button>
+                    <button type="button" class="btn btn-info" id="todo-view-modal-edit-button">Edit Todo</button>
+                    <button type="button" class="btn btn-danger" id="todo-view-modal-delete-button">Delete Todo</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -185,6 +225,8 @@
         let todo = null;
         let todoItem = null;
 
+        let todoModalIsShown = false;
+
         $(document).bind('keydown', function (e) {
             // CTRL + S
             if (e.ctrlKey && e.which === 83) {
@@ -200,7 +242,11 @@
 
             // ALT + N
             if (e.altKey && e.which === 78) {
-                $("#todo-create-modal").modal('show');
+                if (!todoModalIsShown) {
+                    $("#todo-create-modal").modal('show');
+                } else {
+                    openAddTodoItemModal();
+                }
                 return false;
             }
         });
@@ -249,7 +295,7 @@
                 loadTodoItemList();
 
                 $("#todo-view-modal-title").html(t.name);
-                $("#todo-view-modal-description").html(t.description);
+                $("#todo-view-modal-description").html((t.description != null && t.description != "") ? todo.description : "<i>No Description</i>");
 
                 $("#todo-view-modal").modal('show');
             });
@@ -352,59 +398,186 @@
             });
         }
 
+        // Create New Todo Function
+        const createNewTodo = function (e = null) {
+            if (e != null) {
+                e.preventDefault();
+            }
+
+            const name = $("#todo-create-field-name");
+            const description = $("#todo-create-field-description");
+
+            $.ajax({
+                type: "POST",
+                url: "/web/todo",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: JSON.stringify({
+                    "name": name.val(),
+                    "description": description.val(),
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                beforeSend: function () {
+                    $("#todo-create-modal-save-loading-indicator").show();
+                    $("#todo-create-modal-save-button-label").hide();
+                },
+                success: function (result) {
+                    $("#todo-create-modal-save-loading-indicator").hide();
+                    $("#todo-create-modal-save-button-label").show();
+
+                    name.val(null);
+                    description.val(null);
+
+                    toastr.success(result.message);
+
+                    $("#todo-create-modal").modal('hide');
+
+                    loadTodoList();
+                },
+                error: function (result) {
+                    $("#todo-create-modal-save-loading-indicator").hide();
+                    $("#todo-create-modal-save-button-label").show();
+
+                    toastr.error(result.responseJSON.message);
+                }
+            });
+        }
+
+        // Edit Todo
+        const editTodo = function (e = null) {
+            if (e != null) {
+                e.preventDefault();
+            }
+
+            const name = $("#todo-edit-modal-field-name");
+            const description = $("#todo-edit-modal-field-description");
+
+            $.ajax({
+                type: "PUT",
+                url: "/web/todo",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: JSON.stringify({
+                    "id": todo.id,
+                    "name": name.val(),
+                    "description": description.val(),
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                beforeSend: function () {
+                    $("#todo-edit-modal-save-loading-indicator").show();
+                    $("#todo-edit-modal-save-button-label").hide();
+                },
+                success: function (result) {
+                    $("#todo-edit-modal-save-loading-indicator").hide();
+                    $("#todo-edit-modal-save-button-label").show();
+
+                    todo.name = name.val();
+                    todo.description = description.val();
+
+                    name.val(null);
+                    description.val(null);
+
+                    toastr.success(result.message);
+
+                    $("#todo-view-modal-title").html(todo.name);
+                    $("#todo-view-modal-description").html(todo.description);
+
+                    $("#todo-edit-modal").modal('hide');
+                    $("#todo-view-modal").modal('show');
+
+                    loadTodoList();
+                },
+                error: function (result) {
+                    $("#todo-edit-modal-save-loading-indicator").hide();
+                    $("#todo-edit-modal-save-button-label").show();
+
+                    toastr.error(result.responseJSON.message);
+                }
+            });
+        }
+
+        // Open Add Todo Item Modal
+        const openAddTodoItemModal = function () {
+            $("#todo-view-modal").modal('hide');
+            $("#todo-item-create-modal-field-name").focus();
+            $("#todo-item-create-modal").modal('show');
+        }
+
         $(document).ready(function () {
+            $('#todo-view-modal').on('shown.bs.modal', function (e) {
+                todoModalIsShown = true;
+            })
+            $('#todo-view-modal').on('hide.bs.modal', function (e) {
+                todoModalIsShown = false;
+            })
             // Prepare Data From Backend
             loadTodoList();
 
             // Component Initialization
             $("#todo-create-modal-save-loading-indicator").hide();
+            $("#todo-edit-modal-save-loading-indicator").hide();
             $("#todo-item-create-modal-save-loading-indicator").hide();
             $("#todo-item-edit-modal-save-loading-indicator").hide();
 
             // Create Todo Submit Action
-            $("#todo-create-modal-form").on("submit", function (e) {
-                e.preventDefault();
+            $("#todo-create-modal-form").on("submit", createNewTodo);
 
-                const name = $("#todo-create-field-name");
-                const description = $("#todo-create-field-description");
+            // Create Todo by CTRL + ENTER at Todo Description
+            $("#todo-create-field-description").keydown(function (e) {
+                if (e.ctrlKey && e.keyCode == 13) {
+                    createNewTodo();
+                }
+            });
 
+            // Delete Todo Button
+            $("#todo-view-modal-delete-button").on("click", function (e) {
                 $.ajax({
-                    type: "POST",
-                    url: "/web/todo",
+                    type: "DELETE",
+                    url: "/web/todo/" + todo.id,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                     },
-                    data: JSON.stringify({
-                        "name": name.val(),
-                        "description": description.val(),
-                    }),
                     contentType: "application/json",
-                    dataType: "json",
                     async: true,
-                    beforeSend: function () {
-                        $("#todo-create-modal-save-loading-indicator").show();
-                        $("#todo-create-modal-save-button-label").hide();
-                    },
                     success: function (result) {
-                        $("#todo-create-modal-save-loading-indicator").hide();
-                        $("#todo-create-modal-save-button-label").show();
-
-                        name.val(null);
-                        description.val(null);
-
-                        toastr.success(result.message);
-
-                        $("#todo-create-modal").modal('hide');
-
+                        $("#todo-view-modal").modal('hide');
                         loadTodoList();
                     },
                     error: function (result) {
-                        $("#todo-create-modal-save-loading-indicator").hide();
-                        $("#todo-create-modal-save-button-label").show();
-
                         toastr.error(result.responseJSON.message);
                     }
                 });
+            });
+
+            // Edit Button for Todo
+            $("#todo-edit-modal-form").on("submit", editTodo);
+
+            // Edit Todo by CTRL + ENTER at Todo Description
+            $("#todo-edit-modal-field-description").keydown(function (e) {
+                if (e.ctrlKey && e.keyCode == 13) {
+                    editTodo();
+                }
+            });
+
+            // Edit Button for Show Edit Modal
+            $("#todo-view-modal-edit-button").on("click", function () {
+                $("#todo-view-modal").modal('hide');
+                $("#todo-edit-modal").modal('show');
+
+                $("#todo-edit-modal-field-name").val(todo.name);
+                $("#todo-edit-modal-field-description").val(todo.description);
+            });
+
+            // Cancel Edit Todo
+            $("#todo-edit-modal-cancel-button").on("click", function () {
+                $("#todo-edit-modal").modal('hide');
+                $("#todo-view-modal").modal('show');
             });
 
             // Create Todo Item Submit Action
@@ -505,10 +678,7 @@
             });
 
             // Button Add Todo Item
-            $("#todo-view-modal-add-todo-item-button").click(function () {
-                $("#todo-view-modal").modal('hide');
-                $("#todo-item-create-modal").modal('show');
-            });
+            $("#todo-view-modal-add-todo-item-button").click(openAddTodoItemModal);
 
             // Button Cancel On Create Todo Item Modal
             $("#todo-item-create-modal-cancel-button").click(function () {

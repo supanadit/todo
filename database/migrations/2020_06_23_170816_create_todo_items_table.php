@@ -22,7 +22,7 @@ class CreateTodoItemsTable extends Migration
             $table->boolean('complete')->default(false);
         });
         Schema::table('todo_items', function (Blueprint $table) {
-            $table->foreign('todo_id')->references('id')->on('todos');
+            $table->foreign('todo_id')->references('id')->on('todos')->onDelete('cascade');
         });
     }
 
