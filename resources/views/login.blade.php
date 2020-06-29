@@ -63,7 +63,7 @@
             </div>
         </form>
         <br/>
-        Version 1.0.2
+        Version 1.0.3
     </div>
     <!-- /.login-box-body -->
 </div>
