@@ -54,6 +54,11 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/home">Home</a></li>
                         <li>
+                            <a href="#" data-toggle="modal" data-target="#change-password-modal">
+                                Change Password
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="logout-button visible-xs">
                                 Sign Out
                             </a>
@@ -103,10 +108,45 @@
         <!-- /.container -->
     </div>
     <!-- /.content-wrapper -->
+
+    {{-- Change Password Modal --}}
+    <div class="modal fade" id="change-password-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/" method="post" id="change-password-modal-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change Password</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" class="form-control" placeholder="Insert your new password"
+                                   id="change-password-modal-form-field-password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" class="form-control" placeholder="Please confirm new password"
+                                   id="change-password-modal-form-field-password-confirm">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" id="change-password-modal-save-loading-indicator"></i>
+                            <span id="change-password-modal-save-button-label">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
     <footer class="main-footer">
         <div class="container">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.3
+                <b>Version</b> 1.0.4
             </div>
             <strong>Copyright &copy; @php echo date('Y'); @endphp <b>Todo</b>&nbsp;<i>App</i>.</strong>
             All rights
@@ -136,6 +176,7 @@
 
 <script type="application/javascript">
     $(document).ready(function () {
+        $("#change-password-modal-save-loading-indicator").hide();
         $(".logout-button").on('click', function () {
             swal({
                 title: "Do you want to sign out ?",
@@ -144,6 +185,49 @@
             }).then((logout) => {
                 if (logout) {
                     location.href = "/web/logout";
+                }
+            });
+        });
+        $("#change-password-modal-form").on("submit", function (e) {
+            e.preventDefault();
+
+            const password = $("#change-password-modal-form-field-password");
+            const passwordConfirm = $("#change-password-modal-form-field-password-confirm");
+
+            $.ajax({
+                type: "POST",
+                url: "/web/change/password",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: JSON.stringify({
+                    "email": "{{ Session::get('email') }}",
+                    "password": password.val(),
+                    "password_confirm": passwordConfirm.val(),
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                async: true,
+                beforeSend: function () {
+                    $("#change-password-modal-save-loading-indicator").show();
+                    $("#change-password-modal-save-button-label").hide();
+                },
+                success: function (result) {
+                    $("#change-password-modal-save-loading-indicator").hide();
+                    $("#change-password-modal-save-button-label").show();
+
+                    password.val(null);
+                    passwordConfirm.val(null);
+
+                    toastr.success(result.message);
+
+                    $("#change-password-modal").modal('hide');
+                },
+                error: function (result) {
+                    $("#change-password-modal-save-loading-indicator").hide();
+                    $("#change-password-modal-save-button-label").show();
+
+                    toastr.error(result.responseJSON.message);
                 }
             });
         });

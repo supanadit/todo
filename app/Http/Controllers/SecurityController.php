@@ -133,6 +133,38 @@ class SecurityController extends Controller
         }
     }
 
+    public function formChangePassword(Request $request)
+    {
+        $request->validate([
+            "email" => "required",
+            "password" => "required",
+            "password_confirm" => "required",
+        ]);
+        $user = \App\User::where("email", $request->input("email"))->first();
+        if ($user != null) {
+            if ($request->input('password') == $request->input('password_confirm')) {
+                $user->password = Hash::make($request->input('password'));
+                if ($user->save()) {
+                    return response()->json([
+                        "message" => "Success change password",
+                    ], 200);
+                } else {
+                    return response()->json([
+                        "message" => "Failed change password",
+                    ], 400);
+                }
+            } else {
+                return response()->json([
+                    "message" => "New password is not match with confirm password",
+                ], 400);
+            }
+        } else {
+            return response()->json([
+                "message" => "Email " . $request->input('email') . " is not exist",
+            ], 400);
+        }
+    }
+
     public function formLogout(Request $request)
     {
         $request->session()->flush();
