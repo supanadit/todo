@@ -156,9 +156,9 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control"
-                                   placeholder="Insert todo item name here"
-                                   id="todo-item-create-modal-field-name">
+                            <textarea class="form-control"
+                                      placeholder="Insert todo item name here"
+                                      id="todo-item-create-modal-field-name"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -188,9 +188,9 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control"
-                                   placeholder="Edit todo item name here"
-                                   id="todo-item-edit-modal-field-name">
+                            <textarea class="form-control"
+                                      placeholder="Edit todo item name here"
+                                      id="todo-item-edit-modal-field-name"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -218,6 +218,7 @@
 
         let todoModalIsShown = false;
 
+        // Untuk Keyboard Shortcut
         $(document).bind('keydown', function (e) {
             // ESC Key
             if (e.key === "Escape") {
@@ -545,10 +546,11 @@
         }
 
         $(document).ready(function () {
-            $('#todo-view-modal').on('shown.bs.modal', function (e) {
+            const todoViewModal = $("#todo-view-modal");
+            todoViewModal.on("shown.bs.modal", function (e) {
                 todoModalIsShown = true;
             })
-            $('#todo-view-modal').on('hide.bs.modal', function (e) {
+            todoViewModal.on("hide.bs.modal", function (e) {
                 todoModalIsShown = false;
             })
             // Prepare Data From Backend
@@ -565,8 +567,22 @@
 
             // Create Todo by CTRL + ENTER at Todo Description
             $("#todo-create-field-description").keydown(function (e) {
-                if (e.ctrlKey && e.keyCode == 13) {
-                    createNewTodo();
+                if (e.ctrlKey && e.keyCode === 13) {
+                    $("#todo-create-modal-form").submit();
+                }
+            });
+
+            // Create Todo Item by CTRL + ENTER at Todo Description
+            $("#todo-item-create-modal-field-name").keydown(function (e) {
+                if (e.ctrlKey && e.keyCode === 13) {
+                    $("#todo-item-create-modal-form").submit();
+                }
+            });
+
+            // Edit Todo Item by CTRL + ENTER at Todo Description
+            $("#todo-item-edit-modal-field-name").keydown(function (e) {
+                if (e.ctrlKey && e.keyCode === 13) {
+                    $("#todo-item-edit-modal-form").submit();
                 }
             });
 
