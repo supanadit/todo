@@ -219,6 +219,41 @@
         let todoModalIsShown = false;
 
         $(document).bind('keydown', function (e) {
+            // ESC Key
+            if (e.key === "Escape") {
+                // Ketika Todo View Modal terbuka
+                const statusTodoViewModal = ($("#todo-view-modal").data('bs.modal') || {}).isShown;
+                if (statusTodoViewModal !== "undefined" && statusTodoViewModal) {
+                    $("#todo-view-modal").modal('hide');
+                }
+
+                // Ketika Todo Create Modal terbuka
+                const statusTodoCreateModal = ($("#todo-create-modal").data('bs.modal') || {}).isShown;
+                if (statusTodoCreateModal !== "undefined" && statusTodoCreateModal) {
+                    $("#todo-create-modal").modal('hide');
+                }
+
+                // Ketika Todo Edit Modal terbuka
+                const statusTodoEditModal = ($("#todo-edit-modal").data('bs.modal') || {}).isShown;
+                if (statusTodoEditModal !== "undefined" && statusTodoEditModal) {
+                    $("#todo-edit-modal").modal('hide');
+                    $("#todo-view-modal").modal('show');
+                }
+
+                // Ketika Todo Item Create Modal terbuka
+                const statusTodoItemCreateModal = ($("#todo-item-create-modal").data('bs.modal') || {}).isShown;
+                if (statusTodoItemCreateModal !== "undefined" && statusTodoItemCreateModal) {
+                    $("#todo-item-create-modal").modal('hide');
+                    $("#todo-view-modal").modal('show');
+                }
+
+                // Ketika Todo Item Edit Modal terbuka
+                const statusTodoItemEditModal = ($("#todo-item-edit-modal").data('bs.modal') || {}).isShown;
+                if (statusTodoItemEditModal !== "undefined" && statusTodoItemEditModal) {
+                    $("#todo-item-edit-modal").modal('hide');
+                    $("#todo-view-modal").modal('show');
+                }
+            }
             // CTRL + S
             if (e.ctrlKey && e.which === 83) {
                 toastr.error("Prevented");
