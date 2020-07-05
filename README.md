@@ -1,4 +1,4 @@
-![Show Case](https://i.ibb.co/c3KLRfK/Screenshot-20200705-115704.png)
+![Show Case](https://i.ibb.co/Mhryxcy/Todo-App-Preview-1.png)
 # Todo App
 
 Self Hosted Simple Looking Todo Application, powered by Open Source framework such as Laravel + Admin LTE, customizable also beginner will easily understand the flow and the structure of this application
