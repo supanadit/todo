@@ -1,18 +1,62 @@
+![Show Case](https://i.ibb.co/c3KLRfK/Screenshot-20200705-115704.png)
 # Todo App
 
-Multi user todo application
+Self Hosted Simple Looking Todo Application, powered by Open Source framework such as Laravel + Admin LTE, customizable also beginner will easily understand the flow and the structure of this application
+
+## Demo
+**URL** : [https://todo.supanadit.com](https://todo.supanadit.com)
+
+**Email** : admin@email.com
+
+**Password** : 123
+
+This demo will close at 10 July 2020, due to unpaid hosting, I am no longer work anywhere
 
 ## Requirement
 - PHP 7.4+
 - Laravel 7.2.5+
 
 ## Quick Start
-- `composer install`
+- create a database called `todo` or whatever you want
 - create `.env` file
+- setup database configuration at `.env` file
+- `composer install`
 - `php artisan key:generate`
 - `php artisan migrate`
 - `php artisan db:seed`
+- `php artisan serve`
+
+#### Apache Configuration for Virtual Host
+```apacheconfig
+<VirtualHost *:80>
+    DocumentRoot "/srv/http/todo/public"
+    
+    ServerAdmin webmaster@localhost
+    ServerName todo.test
+    
+    <Directory "/srv/http/todo/public">
+        DirectoryIndex index.php
+        AllowOverride All
+        Options FollowSymlinks
+        Require all granted
+    </Directory>
+    
+    ErrorLog "/var/log/httpd/todo.test-error_log"
+    CustomLog "/var/log/httpd/todo.test-access_log" common
+</VirtualHost>
+```
+
+## Note
+If you want to use forgot password feature, you must provide your email and password at `.env`
+
+## Support
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N01CIMZ)
 
 ## License
-This is commercial application, after purchasing this application you have the control to edit or open the source code,
-but you prohibited share any of the source code to anyone.
+Copyright 2020 Supan Adit Pratama
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
