@@ -12,14 +12,10 @@
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/dist/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('vendor/Ionicons/css/ionicons.min.css')}}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{asset('plugin/iCheck/square/blue.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -68,8 +64,6 @@
 <script src="{{asset('vendor/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- Toastr -->
 <script src="{{asset('vendor/toastr/toastr.min.js')}}"></script>
-<!-- iCheck -->
-<script src="{{asset('plugin/iCheck/icheck.min.js')}}"></script>
 <script>
     $(document).ready(function () {
         $("#forgot-password-form").on("submit", function (e) {

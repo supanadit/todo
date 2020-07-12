@@ -3,15 +3,6 @@
 
 Self Hosted Simple Looking Todo Application, powered by Open Source framework such as Laravel + Admin LTE, customizable also beginner will easily understand the flow and the structure of this application
 
-## Demo
-**URL** : [https://todo.supanadit.com](https://todo.supanadit.com)
-
-**Email** : admin@email.com
-
-**Password** : 123
-
-This demo will close at 10 July 2020, due to unpaid hosting, I am no longer work anywhere
-
 ## Requirement
 - PHP 7.4+
 - Laravel 7.2.5+

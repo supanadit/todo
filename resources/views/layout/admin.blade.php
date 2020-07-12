@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="{{asset('vendor/bootstrap/dist/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('vendor/font-awesome/css/font-awesome.min.css')}}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{asset('vendor/Ionicons/css/ionicons.min.css')}}">
     <!-- Toastr -->
     <link rel="stylesheet" href="{{asset('vendor/toastr/toastr.min.css')}}">
     <!-- Theme style -->
@@ -176,8 +174,6 @@
 <script src="{{asset('vendor/toastr/toastr.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('dist/js/demo.js')}}"></script>
 
 <script type="application/javascript">
     $(document).ready(function () {
