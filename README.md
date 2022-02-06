@@ -50,9 +50,9 @@ also beginner will easily understand the flow and the structure of this applicat
 
 ## Docker Way
 
-### Via Docker Compose
-
 This app can run inside docker with official support
+
+### Via Docker Compose
 
 ```bash
 docker-compose up -d
