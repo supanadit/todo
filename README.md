@@ -50,7 +50,13 @@ also beginner will easily understand the flow and the structure of this applicat
 
 ## Docker Way
 
-1. `docker-compose up -d`
+### Via Docker Compose
+
+This app can run inside docker with official support
+
+```bash
+docker-compose up -d
+```
 
 ### Run Migration
 
