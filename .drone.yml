@@ -1,0 +1,13 @@
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: build-image
+    image: plugins/docker
+    settings:
+      repo: supanadit/todo
+      username:
+        from_secret: DOCKERUSER
+      password:
+        from_secret: DOCKERPASS
