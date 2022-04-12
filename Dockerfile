@@ -27,15 +27,15 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Enable Some Apache Mod
 RUN a2enmod rewrite headers
 
-RUN docker-php-ext-install \
-    bz2 \
-    intl \
-    iconv \
-    bcmath \
-    opcache \
-    calendar \
-    pdo_mysql \
-    zip
+#RUN docker-php-ext-install \
+#    bz2 \
+#    intl \
+#    iconv \
+#    bcmath \
+#    opcache \
+#    calendar \
+#    pdo_mysql \
+#    zip
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
@@ -48,6 +48,6 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 # Composer install and generate key
-RUN composer install && php artisan key:generate
+RUN composer install --optimize-autoloader --no-dev && php artisan key:generate
 
 RUN chown -R www-data:www-data /var/www/html
