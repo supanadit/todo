@@ -3,21 +3,21 @@ FROM php:7.4-apache
 RUN apt-get update
 
 # 1. development packages
-RUN apt-get install -y \
-    git \
-    zip \
-    curl \
-    sudo \
-    unzip \
-    libicu-dev \
-    libzip-dev \
-    libbz2-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libmcrypt-dev \
-    libreadline-dev \
-    libfreetype6-dev \
-    g++
+#RUN apt-get install -y \
+#    git \
+#    zip \
+#    curl \
+#    sudo \
+#    unzip \
+#    libicu-dev \
+#    libzip-dev \
+#    libbz2-dev \
+#    libpng-dev \
+#    libjpeg-dev \
+#    libmcrypt-dev \
+#    libreadline-dev \
+#    libfreetype6-dev \
+#    g++
 
 # Set Apache Root
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
