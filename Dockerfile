@@ -3,8 +3,7 @@ FROM php:7.4-apache
 RUN apt-get update
 
 # 1. development packages
-RUN apt-get install -y git
-#    zip \
+RUN apt-get install -y git zip
 #    curl \
 #    sudo \
 #    unzip \
