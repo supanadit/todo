@@ -13,15 +13,15 @@ steps:
         from_secret: DOCKERPASS
 
   - name: deploy
-      image: appleboy/drone-ssh
-      settings:
-        host: supanadit.com
-        username: root
-        port: 22
+    image: appleboy/drone-ssh
+    settings:
+      host: supanadit.com
+      username: root
+      port: 22
       key:
         from_secret: SSH_KEY
-    script:
-      - cd /root/Docker/todo
-      - docker-compose down
-      - docker-compose pull
-      - docker-compose up -d
+      script:
+        - cd /root/Docker/todo
+        - docker-compose down
+        - docker-compose pull
+        - docker-compose up -d
