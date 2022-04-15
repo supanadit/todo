@@ -1,5 +1,7 @@
 ![Show Case](https://i.ibb.co/Mhryxcy/Todo-App-Preview-1.png)
 
+[![Build Status](https://drone.supanadit.com/api/badges/supanadit/todo/status.svg)](https://drone.supanadit.com/supanadit/todo)
+
 # Todo App
 
 Self Hosted Simple Looking Todo Application, powered by Open Source framework such as Laravel + Admin LTE, customizable

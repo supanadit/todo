@@ -22,6 +22,11 @@ steps:
         from_secret: SECRETKEY
       script:
         - cd /root/Docker/todo
-        - docker-compose down
         - docker-compose pull
+        - docker-compose down
         - docker-compose up -d
+        - docker-compose exec todo-app php artisan migrate
+
+trigger:
+  branch:
+    - master

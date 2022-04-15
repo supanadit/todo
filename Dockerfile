@@ -46,6 +46,6 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 # Composer install and generate key
-RUN composer install --optimize-autoloader --no-dev && php artisan key:generate
+RUN composer install && php artisan key:generate
 
 RUN chown -R www-data:www-data /var/www/html
