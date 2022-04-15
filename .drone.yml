@@ -26,6 +26,7 @@ steps:
         - docker-compose down
         - docker-compose up -d
         - docker-compose exec todo-app php artisan migrate
+        - docker image prune
 
 trigger:
   branch:
