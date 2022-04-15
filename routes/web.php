@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+\URL::forceScheme('https');
+
 Route::get('/', "SecurityController@initSystem");
 Route::get('/login', "SecurityController@viewLogin")->name('login');
 Route::get('/forgot/password', "SecurityController@viewForgotPassword");
