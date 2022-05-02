@@ -5,9 +5,9 @@ services:
       context: .
       dockerfile: PHP.Dockerfile
     ports:
-      - "80:80"
+      - "8000:8000"
     volumes:
-      - "./:/var/www/html"
+      - "./:/todo"
 
   mysqldb:
     image: "bitnami/mysql:8.0"
