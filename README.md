@@ -83,25 +83,25 @@ docker-compose -f docker-compose.dev.yml up -d
 ### Installing / Updating Dependencies
 
 ```bash
-docker-compose -f docker-compose.dev.yml exec -w /srv todo composer install # Composer Install
+docker-compose -f docker-compose.dev.yml exec -w /var/www/html todo composer install # Composer Install
 ```
 
 ### Generate Key
 
 ```bash
-docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan key:generate # Generate Key
+docker-compose -f docker-compose.dev.yml exec -w /var/www/html todo php artisan key:generate # Generate Key
 ```
 
 ### Database Migration
 
 ```bash
-docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan migrate
+docker-compose -f docker-compose.dev.yml exec -w /var/www/html todo php artisan migrate
 ```
 
 ### Database Seed
 
 ```bash
-docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan db:seed
+docker-compose -f docker-compose.dev.yml exec -w /var/www/html todo php artisan db:seed
 ```
 
 ### Shutdown Application
@@ -113,7 +113,7 @@ docker-compose -f docker-compose.dev.yml down
 ### Updating `.env`
 
 ```bash
-docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan config:cache
+docker-compose -f docker-compose.dev.yml exec -w /var/www/html todo php artisan config:cache
 ```
 
 ### Rebuilding Dockerfile

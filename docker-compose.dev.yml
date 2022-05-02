@@ -4,16 +4,10 @@ services:
     build:
       context: .
       dockerfile: PHP.Dockerfile
-    volumes:
-      - "./:/srv"
-
-  caddy:
-    image: caddy:2.5.0-alpine
     ports:
       - "80:80"
     volumes:
-      - "./Caddyfile:/etc/caddy/Caddyfile"
-      - "./:/srv"
+      - "./:/var/www/html"
 
   mysqldb:
     image: "bitnami/mysql:8.0"
