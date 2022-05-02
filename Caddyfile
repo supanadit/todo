@@ -1,0 +1,5 @@
+:80 {
+    root * /srv/public
+    file_server
+    php_fastcgi todo:9000
+}

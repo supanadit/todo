@@ -72,6 +72,56 @@ docker-compose exec todo-app php artisan migrate
 docker-compose exec todo-app php artisan db:seed
 ```
 
+## Development Using Docker
+
+### Run Application
+
+```bash
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+### Installing / Updating Dependencies
+
+```bash
+docker-compose -f docker-compose.dev.yml exec -w /srv todo composer install # Composer Install
+```
+
+### Generate Key
+
+```bash
+docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan key:generate # Generate Key
+```
+
+### Database Migration
+
+```bash
+docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan migrate
+```
+
+### Database Seed
+
+```bash
+docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan db:seed
+```
+
+### Shutdown Application
+
+```bash
+docker-compose -f docker-compose.dev.yml down
+```
+
+### Updating `.env`
+
+```bash
+docker-compose -f docker-compose.dev.yml exec -w /srv todo php artisan config:cache
+```
+
+### Rebuilding Dockerfile
+
+```bash
+docker-compose -f docker-compose.dev.yml build
+```
+
 ### Troubleshooting MySQL Won't Run In Docker
 
 Run this script `sudo chown -R 1001:1001 mysql`

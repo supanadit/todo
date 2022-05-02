@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  todo:
+    build:
+      context: .
+      dockerfile: PHP.Dockerfile
+    volumes:
+      - "./:/srv"
+
+  caddy:
+    image: caddy:2.5.0-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - "./Caddyfile:/etc/caddy/Caddyfile"
+      - "./:/srv"
+
+  mysqldb:
+    image: "bitnami/mysql:8.0"
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql:/bitnami/mysql/data"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=todo
