@@ -25,6 +25,8 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 # Enable Some Apache Mod
 RUN a2enmod rewrite headers
 
+RUN docker-php-ext-install pdo pdo_mysql
+
 #RUN docker-php-ext-install \
 #    bz2 \
 #    intl \
