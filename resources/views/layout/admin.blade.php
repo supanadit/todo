@@ -63,6 +63,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="#" data-toggle="modal" data-target="#about">
+                                About
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" class="logout-button visible-xs">
                                 Sign Out
                             </a>
@@ -141,6 +146,45 @@
                         </button>
                     </div>
                 </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade" id="about">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    This application is design and developed by Supan Adit Pratama, and I need to say many thanks for
+                    all open source project that help me a lot in order to build this amazing app.
+                    <br/><br/>
+
+                    <ul>
+                        <li>PHP by Rasmus Lerdorf</li>
+                        <li>Laravel by Taylor Otwell</li>
+                        <li>JQuery by John Resig and JQuery Team</li>
+                        <li>AdminLTE by ColorlibHQ</li>
+                    </ul>
+
+                    <p>
+                        The goal of this project is making todo app free and open source, and also can compete with paid
+                        feature like Todoist, Jira, Trello, etc.
+                    </p>
+
+                    <p>
+                        Also in my opinion, the best way to improve the skill is by continue code and learning by
+                        applying the knowledge to real project, and you guys also can contribute to the project, for
+                        whatever aspect, eg. Design, Logo, Concept Idea, or even help me from code side.
+                    </p>
+
+                    <p>
+                        This Todo App is made to be simple and future proof.
+                    </p>
+                </div>
             </div>
             <!-- /.modal-content -->
         </div>
