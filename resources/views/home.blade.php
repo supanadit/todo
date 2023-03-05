@@ -209,6 +209,35 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+    <div class="modal fade" id="todo-item-delete-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/" method="post" id="todo-item-delete-modal-form">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Deleting todo item</h4>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure want to delete this todo item ?
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-default pull-left"
+                            id="todo-item-delete-modal-cancel-button">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-spinner fa-spin" id="todo-item-delete-modal-confirm-loading-indicator"></i>
+                            <span id="todo-item-delete-modal-confirm-button">Yes</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 @endsection
 
 @section('js')
@@ -388,21 +417,23 @@
         }
 
         const deleteTodoItem = function (todoItem) {
-            $.ajax({
-                type: "DELETE",
-                url: "/web/todo/item/" + todoItem.id,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                },
-                contentType: "application/json",
-                async: true,
-                success: function (result) {
-                    loadTodoItemList();
-                },
-                error: function (result) {
-                    toastr.error(result.responseJSON.message);
-                }
-            });
+            sessionStorage.setItem("TODO_ITEM_ID", todoItem.id);
+            $("#todo-item-delete-modal").modal('show');
+            // $.ajax({
+            //     type: "DELETE",
+            //     url: "/web/todo/item/" + todoItem.id,
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            //     },
+            //     contentType: "application/json",
+            //     async: true,
+            //     success: function (result) {
+            //         loadTodoItemList();
+            //     },
+            //     error: function (result) {
+            //         toastr.error(result.responseJSON.message);
+            //     }
+            // });
         }
 
         const loadTodoItemList = function () {
@@ -723,6 +754,11 @@
                         toastr.error(result.responseJSON.message);
                     }
                 });
+            });
+
+            // Delete Todo Item Cancel Action
+            $("#todo-item-delete-modal-cancel-button").on("click", function () {
+                $("#todo-item-delete-modal").modal('hide');
             });
 
             // Search
