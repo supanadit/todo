@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Push Docker image
           command: |
+            docker login -u supanadit -p $DOCKER_HUB_PASS
             docker push supanadit/todo:${CIRCLE_TAG}
             docker push supanadit/todo:latest
 
