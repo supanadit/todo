@@ -1,6 +1,6 @@
 ![Show Case](https://i.ibb.co/Mhryxcy/Todo-App-Preview-1.png)
 
-[![Build Status](https://drone.supanadit.com/api/badges/supanadit/todo/status.svg)](https://drone.supanadit.com/supanadit/todo)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/supanadit/todo/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/supanadit/todo/tree/master)
 
 # Todo App
 
