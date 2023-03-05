@@ -263,8 +263,10 @@
 
             // CTRL + F
             if (e.ctrlKey && e.which === 70) {
-                $("#search-todo").focus();
-                return false;
+                if (!todoModalIsShown) {
+                    $("#search-todo").focus();
+                    return false;
+                }
             }
 
             // ALT + N
