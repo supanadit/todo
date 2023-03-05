@@ -1,9 +1,18 @@
-version: 2.1
+version: 2
 
 jobs:
   build:
     docker:
       - image: cimg/base:2022.05
-        auth:
-          username: supanadit
-          password: $DOCKER_HUB_PASS
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            docker build -t supanadit/todo:latest .
+      - run:
+          name: Push Docker image
+          command: |
+            docker login -u supanadit -p $DOCKER_HUB_PASS
+            docker push supanadit/todo:latest
