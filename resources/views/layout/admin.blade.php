@@ -150,7 +150,7 @@
     <footer class="main-footer">
         <div class="container">
             <div class="pull-right hidden-xs">
-                <b>Version</b> 1.0.5
+                <b>Version</b> 1.0.6
             </div>
             <strong>Copyright &copy; @php echo date('Y'); @endphp <b>Todo</b>&nbsp;<i>App</i>.</strong> All rights
             reserved.
