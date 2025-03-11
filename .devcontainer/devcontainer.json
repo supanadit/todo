@@ -6,6 +6,9 @@
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+	],
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
