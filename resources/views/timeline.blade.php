@@ -41,6 +41,7 @@
         ];
         let gantt = new Gantt("#gantt", tasks, {
             bar_height: 16,
+            column_width: 30,
             container_height: 670,
             view_mode_select: true,
         });
