@@ -50,6 +50,13 @@ also beginner will easily understand the flow and the structure of this applicat
 </VirtualHost>
 ```
 
+## DevContainer
+
+
+```bash
+apache2ctl start
+```
+
 ## Docker Way
 
 This app can run inside docker with official support

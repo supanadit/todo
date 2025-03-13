@@ -9,6 +9,7 @@ services:
     volumes:
       - ../:/workspaces:cached
       - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+      - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity

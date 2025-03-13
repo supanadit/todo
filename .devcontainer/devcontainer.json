@@ -21,11 +21,11 @@
 	},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		8000
+		80
 	],
 	"postCreateCommand": "git config oh-my-zsh.hide-info 1 && sudo chmod a+x \"$(pwd)\" && sudo rm -rf /var/www/html && sudo ln -s \"$(pwd)\" /var/www/html",
 	"portsAttributes": {
-		"8000": {
+		"80": {
 			"label": "PHP Artisan Serve",
 			"onAutoForward": "notify"
 		}
