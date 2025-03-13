@@ -15,7 +15,7 @@
 			"settings": {},
 			"extensions": [
 				"GitHub.copilot",
-				"xdebug.php-debug"
+				"xdebug.php-pack"
 			]
 		}
 	},
