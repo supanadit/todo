@@ -4,7 +4,7 @@
 	"name": "PHP",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceFolder": "/workspaces",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
