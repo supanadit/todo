@@ -11,6 +11,11 @@ class TodoController extends Controller
         return view('home');
     }
 
+    public function viewTimeline()
+    {
+        return view('timeline');
+    }
+
     // Todo
     public function todoList(Request $request)
     {

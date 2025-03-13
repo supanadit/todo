@@ -86,7 +86,7 @@ class SecurityController extends Controller
         $user = \App\User::where("email", $request->input("email"))->first();
         if ($user != null) {
             return response()->json([
-                "message" => "User with email " . $user->email . " is exist",
+                "message" => "User with email " . $user->email . " is not available",
             ], 400);
         } else {
             if ($request->input('password') != $request->input('password_confirm')) {

@@ -22,6 +22,7 @@ Route::get('/register', "SecurityController@viewRegister");
 
 Route::middleware('auth.web')->group(function () {
     Route::get('/home', "TodoController@viewHome");
+    Route::get('/timeline', "TodoController@viewTimeline");
     Route::post('/web/change/password', "SecurityController@formChangePassword");
 
     // This group is used for internal API provided by session

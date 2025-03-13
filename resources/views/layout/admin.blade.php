@@ -62,6 +62,7 @@
                                 Change Password
                             </a>
                         </li>
+                        <li><a href="/timeline">Timeline</a></li>
                         <li>
                             <a href="#" class="logout-button visible-xs">
                                 Sign Out
