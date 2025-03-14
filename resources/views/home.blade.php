@@ -118,6 +118,13 @@
                     <div>
                         <b>Todo Item List</b>
                         <div class="pull-right">
+                            <button class="btn btn-warning btn-xs">
+                                Archived
+                            </button>
+                            <button class="btn btn-success btn-xs">
+                                Completed
+                            </button>
+                            &nbsp;|&nbsp;
                             <button class="btn btn-info btn-xs" id="todo-view-modal-add-todo-item-button">
                                 Add Todo Item
                             </button>
@@ -205,6 +212,10 @@
                                     <input type="text" class="form-control">
                                 </div>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Timeline</label>
+                            <input type="text" class="form-control">
                         </div>
                     </div>
                     <div class="modal-footer">
