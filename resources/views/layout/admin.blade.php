@@ -57,12 +57,12 @@
                 <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="/home">Home</a></li>
+                        <li><a href="/timeline">Timeline</a></li>
                         <li>
                             <a href="#" data-toggle="modal" data-target="#change-password-modal">
                                 Change Password
                             </a>
                         </li>
-                        <li><a href="/timeline">Timeline</a></li>
                         <li>
                             <a href="#" class="logout-button visible-xs">
                                 Sign Out
